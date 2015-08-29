@@ -1,0 +1,379 @@
+set nocompatible
+"自动检测文件类型
+filetype plugin on
+"语法高亮开启
+syntax on
+"source $VIMRUNTIME/vimrc_example.vim
+"source $VIMRUNTIME/mswin.vim
+"behave mswin
+
+"去掉工具栏
+set guioptions-=T
+
+
+" 颜色主题
+colorscheme monokai
+
+" vim在与屏幕/键盘交互时用的编码
+"set termencoding = prc 
+    
+" 打开文件时用的编码
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+     
+" 文件存储时的编码
+"set fileencoding=utf-8
+
+set lines=80
+set columns=120
+
+" 显示行号
+set nu
+
+"搜索智能忽略大小写
+set ignorecase smartcase
+
+"搜索结果高亮显示
+set hls
+
+" 不换行
+set nowrap
+
+"set verbose
+" 设置缩进
+set shiftwidth=4
+set tabstop=4
+
+" 关闭备份
+set nobackup
+set nowritebackup
+
+" 移除菜单栏、工具栏和滚动条
+"set guioptions-=m
+"set guioptions-=T
+"垂直滚动条
+set guioptions+=r
+"水平滚动条
+set guioptions+=b
+    
+"的分号是必不可少的。这个命令让vim首先在当前目录里寻找tags文件，如果没有找到tags文件，或者没有找到对应的目标，就到父目录中查找
+set tags=tags;
+"因为tags文件中记录的路径总是相对于tags文件所在的路径，所以要使用第二个设置项来改变vim的当前目录
+set autochdir
+
+
+
+" 使用中文帮助
+set helplang=cn
+    
+" gvim设置
+if has("gui_running")
+
+        " vim内部编码
+        set encoding=utf-8
+		scriptencoding utf-8
+
+        " 解决起始画面及标题乱码
+        language messages zh_CN.utf-8
+
+        " 解决菜单乱码
+        "source $VIMRUNTIME/delmenu.vim
+        "source $VIMRUNTIME/menu.vim
+        
+        " 字体设置
+        "set guifont=Courier_New:h10
+        set guifont=Menlo\ Regular:h13
+        
+		"let g:Powerline_symbols = 'fancy'
+		"set guifont="Terminus for Powerline:h12:cGB2132"
+
+
+        " 设置窗口的起始位置和大小
+        "winpos 250 200
+		
+		"using alt key as a meta key
+		set macmeta
+
+endif
+    
+"vimwiki存储路径
+let g:vimwiki_use_mouse = 1
+let g:vimwiki_list = [{
+                \"path":$VIMRUNTIME."/vimwiki",
+                \"path_html":$VIMRUNTIME."/vimwiki/html",
+                \"html_header":$VIMRUNTIME."/vimwiki/html_template/header.tpl",
+                \"html_footer":$VIMRUNTIME."/vimwiki/html_template/footer.tpl"
+                \}]
+
+
+
+" 代码折叠 
+set foldmethod=syntax
+"打开文件时默认不折叠代码
+set foldlevelstart=99
+	
+set foldcolumn=4
+
+"--------------python------------------
+"每次退格删除4个空格
+autocmd FileType python setlocal sta softtabstop=4 tabstop=4
+"用空格代替Tab
+autocmd FileType python setlocal expandtab
+
+autocmd FileType python setlocal foldmethod=indent
+
+"Powerline-----------------------
+"let g:Powerline_symbols = 'fancy'
+set fillchars+=stlnc:\.,stl:\ ,
+set laststatus=2
+
+"tagbar---------------------------------
+let g:tagbar_systemenc = 'cp936'
+let g:tagbar_left = 1
+" autofocus on Tagbar open
+let g:tagbar_autofocus = 1
+let g:tagbar_sort = 0
+
+
+
+
+"NERDTree-------------------------------
+let NERDTreeWinPos='right'
+let NERDTreeShowBookmarks=1
+let NERDTreeBookmarksFile=$VIM.'\Data\NerdBookmarks.txt'
+
+" 快捷键
+
+set winaltkeys=no
+
+let mapleader=","
+let g:pydoc_cmd = 'python -m pydoc'
+
+" 使tag命令映射到tjump命令
+set cscopetag
+set iminsert=1 
+
+inoremap <M-j> <left>
+inoremap <M-l> <right>
+inoremap <M-i> <up>
+inoremap <M-k> <down>
+
+noremap <M-j> <left>
+noremap <M-l> <right>
+noremap <M-i> <up>
+noremap <M-k> <down>
+
+inoremap <M-u> <backspace>
+inoremap <M-o> <del>
+inoremap <M-q> <esc>
+inoremap <C-s> <esc>:w<CR>i
+
+inoremap <M-w> <pageup>
+inoremap <M-s> <pagedown>
+inoremap <M-a> <esc>0i
+inoremap <M-d> <esc>A
+
+noremap <M-w> <pageup>
+noremap <M-s> <pagedown>
+noremap <M-a> 0
+noremap <M-d> A<esc>
+
+inoremap <M-z>  <esc>:tabprevious<CR>i
+inoremap <M-x>  <esc>:tabnew<CR>i
+inoremap <M-c>  <esc>:tabnext<CR>i
+inoremap <M-v>  <esc>:tabclose<CR>i
+
+noremap <M-z>  :tabprevious<CR>
+noremap <M-x>  :tabnew<CR>
+noremap <M-c>  :tabnext<CR>
+noremap <M-v>  :tabclose<CR>
+
+noremap <M-u> <backspace>
+noremap <M-o> <del>
+
+
+"这一段用来把esc开头的组合键转换为alt开头的按键.
+"因为实际上terminal里面没有alt键,alt会被转化为esc
+
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+
+set timeout ttimeoutlen=50
+
+
+
+
+"用空格键来开关折叠
+nnoremap <space> za 
+
+
+
+"wrap
+"inoremap <A-w>  <esc>:python import sys<CR>:python sys.argv=['wrap']<CR>:pyf $vim\compileAndRun.py<CR>i
+"noremap <A-w>  <esc>:python import sys<CR>:python sys.argv=['wrap']<CR>:pyf $vim\compileAndRun.py<CR>
+
+"编译
+inoremap <A-e>  <esc>:w<CR>:python import sys<CR>:python sys.argv=['compile']<CR>:pyf $vim\compileAndRun.py<CR>i
+noremap <A-e>  <esc>:w<CR>:python import sys<CR>:python sys.argv=['compile']<CR>:pyf $vim\compileAndRun.py<CR>
+
+"运行
+inoremap <A-r>  <esc>:w<CR>:python import sys<CR>:python sys.argv=['run']<CR>:pyf $vim\compileAndRun.py<CR>i
+noremap <A-r>  <esc>:w<CR>:python import sys<CR>:python sys.argv=['run']<CR>:pyf $vim\compileAndRun.py<CR>
+
+"clean
+inoremap <A-t>  <esc>:python import sys<CR>:python sys.argv=['wrap']<CR>:pyf $vim\compileAndRun.py<CR>i
+noremap <A-t>  <esc>:python import sys<CR>:python sys.argv=['wrap']<CR>:pyf $vim\compileAndRun.py<CR>
+
+" F2重建tag
+nmap <F2> :call ReBuildTag()<CR>
+
+" F3删掉windows换行符^M
+nmap <F3> :%s/\r\(\n\)/\1/g<CR>
+
+"F4 Matrix
+nnoremap <F4> :w<CR>:Matrix<CR>
+inoremap <F4> <esc>:w<CR>:Matrix<CR>
+
+"编译-运行
+inoremap <F5>  <esc>:w<CR>:python import sys<CR>:python sys.argv=['compile','run']<CR>:pyf $vim\compileAndRun.py<CR>i
+noremap <F5>  <esc>:w<CR>:python import sys<CR>:python sys.argv=['compile','run']<CR>:pyf $vim\compileAndRun.py<CR>
+
+"打开文件浏览器
+inoremap <F6>  <esc>:call Openexp()<CR>i
+noremap <F6>  <esc>:call Openexp()<CR>
+
+"f8打开tagbar
+map <F8> :TagbarToggle<CR>
+
+"f9打开共享的NERDTree
+map <silent> <f9> :NERDTreeMirror<cr>
+"f10开关NERDTree
+map <silent> <f10> :NERDTreeToggle<cr>
+
+
+
+
+
+
+
+"在当前位置打开浏览器
+function! Openexp()
+python << EOF
+import vim
+import os.path
+import subprocess
+cb=vim.current.buffer
+file_path = os.path.dirname(cb.name)
+subprocess.Popen(['open',file_path])
+
+EOF
+endfunction
+
+
+
+"python function
+
+function! ReBuildTag()
+python << EOF
+import os
+import subprocess
+
+current_dir = os.getcwd()
+tmp = ''
+while True:
+	if 'tags' not in os.listdir('.'):
+		os.chdir('..')
+	else:
+		subprocess.Popen(['ctags','-R'])
+		print(os.getcwd() + '/tags正在重建中...')
+		break
+
+	if tmp != os.getcwd():
+		tmp = os.getcwd()
+	else:#已经到达顶层目录
+		print('未找到tag文件')
+		break
+		
+EOF
+endfunction
+
+
+function! Init()
+python << EOF
+import vim
+import os.path
+import time
+
+author="AlexaZhou AlexaZhou@163.com"
+ 
+cb=vim.current.buffer
+file_name = os.path.basename(cb.name)
+time_str = time.strftime('%Y-%m-%d %H:%M:%S')
+file_encoding = vim.eval("&encoding")
+file_type = (file_name.rsplit('.',1))[-1]#取最后一个点后面的，应对文件名中含小数点的情况
+
+def normal_cmd(str):#普通模式下命令
+    vim.command("normal "+str)
+
+if file_type == 'py':
+    vim.command("set fileencoding=utf-8")
+    init_templet = ["#!/usr/bin/env python",\
+                    "# -*- coding: utf-8 -*-",\
+                    "#"+file_name,\
+                    "#Direction:",\
+                    "#"+time_str+" by "+author,\
+                    "","","","","","",\
+                    "def main():",\
+                    "    pass",\
+                    "","",\
+                    "if __name__ == '__main__':",\
+                    "    main()",\
+                    "    input('Press Enter to exit')",\
+                    "else:",\
+                    r"    print ('"+file_name+r" had been imported as a module')",]
+
+elif file_type  == 'c' :
+    init_templet = [r"/*************************************************",\
+                    file_name + " encoding = " + file_encoding,\
+                    "Direction:",\
+                    time_str+" by "+author,\
+                    r"*************************************************/",\
+                    r"#include <stdio.h>",\
+                    "","","",\
+                    "int main()",\
+                    "{","","}","",]
+
+elif file_type == 'html':
+	init_templet = [r'<!----directions:---->',
+					r'<!----'+ time_str + ' by ' + author + r'---->',
+					r'<html>',
+					r'	<body>',
+					r'	<body>',
+					r'<html>']
+
+cb.append(init_templet,0)
+normal_cmd('zR')#close the fold 
+EOF
+endfunction
+
+"fast compile and run
+
+
+"autocmd BufWrite *.cpp,*.h,*.c call UPDATE_TAGS()
+
+
+"set guifont=Terminus\ for\ Powerline:h12:cGB2312
+
+
+"状态栏设置:文件路径、文件名、标记、文件类型、字符编码、文件格式、当前位置、当前相对位置、文件总行数、日期、星期
+set laststatus=2
+set statusline=%F\ %h%1*%m%r%w%0*[%{strlen(&filetype)?&filetype:'none'},%{&encoding},%{&fileformat}]%=%-14.(%l,%c%V%)\ %<%p%%\ \ \ [%L]\ \ \ %{strftime('%y-%m-%d\ %A')} 
+
+"自动更新.vimrc 文件和 .gvimrc 文件
+autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! bufwritepost .gvimrc source ~/.gvimrc
+
+

@@ -1,0 +1,5 @@
+*.pyc
+*.swp
+*.cache
+_vim/.netrwhist 
+_vim/.VimballRecord
