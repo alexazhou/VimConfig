@@ -128,7 +128,11 @@ autocmd FileType python setlocal expandtab
 
 autocmd FileType python setlocal foldmethod=indent
 
-"autocmd FileType pythou
+autocmd FileType python map <C-]> <leader>d
+autocmd FileType python map <C-t> <C-o>
+
+autocmd FileType python imap <C-]> <esc><leader>di
+autocmd FileType python imap <C-t> <esc><C-o>i
 
 "-------------php----------------------
 "autocmd FileType php set omnifunc=phpcomplete#CompletePHP 
@@ -145,8 +149,6 @@ let g:tagbar_left = 1
 " autofocus on Tagbar open
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
-
-
 
 
 "NERDTree-------------------------------
@@ -178,6 +180,9 @@ inoremap <M-o> <del>
 inoremap <M-q> <esc>
 inoremap <C-s> <esc>:w<CR>i
 
+noremap <M-u> <backspace>
+noremap <M-o> <del>
+
 inoremap <M-w> <pageup>
 inoremap <M-s> <pagedown>
 inoremap <M-a> <esc>0i
@@ -198,8 +203,6 @@ noremap <M-x>  :tabnew<CR>
 noremap <M-c>  :tabnext<CR>
 noremap <M-v>  :tabclose<CR>
 
-noremap <M-u> <backspace>
-noremap <M-o> <del>
 
 
 "这一段用来把esc开头的组合键转换为alt开头的按键.
