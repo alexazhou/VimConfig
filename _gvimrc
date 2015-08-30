@@ -60,6 +60,9 @@ set tags=tags;
 "因为tags文件中记录的路径总是相对于tags文件所在的路径，所以要使用第二个设置项来改变vim的当前目录
 set autochdir
 
+set completeopt=longest,menu
+
+let g:jedi#force_py_version = 3
 
 
 " 使用中文帮助
@@ -113,6 +116,10 @@ set foldlevelstart=99
 	
 set foldcolumn=4
 
+let mapleader=","
+let g:pydoc_cmd = 'python -m pydoc'
+
+
 "--------------python------------------
 "每次退格删除4个空格
 autocmd FileType python setlocal sta softtabstop=4 tabstop=4
@@ -120,6 +127,12 @@ autocmd FileType python setlocal sta softtabstop=4 tabstop=4
 autocmd FileType python setlocal expandtab
 
 autocmd FileType python setlocal foldmethod=indent
+
+"autocmd FileType pythou
+
+"-------------php----------------------
+"autocmd FileType php set omnifunc=phpcomplete#CompletePHP 
+
 
 "Powerline-----------------------
 "let g:Powerline_symbols = 'fancy'
@@ -145,8 +158,6 @@ let NERDTreeBookmarksFile=$VIM.'\Data\NerdBookmarks.txt'
 
 set winaltkeys=no
 
-let mapleader=","
-let g:pydoc_cmd = 'python -m pydoc'
 
 " 使tag命令映射到tjump命令
 set cscopetag
@@ -278,16 +289,23 @@ endfunction
 
 function! ReBuildTag()
 python << EOF
+import vim
 import os
 import subprocess
 
 current_dir = os.getcwd()
+cb=vim.current.buffer
+file_name = os.path.basename(cb.name)
+file_type = (file_name.rsplit('.',1))[-1]#取最后一个点后面的，应对文件名中含小数点的情况
 tmp = ''
 while True:
 	if 'tags' not in os.listdir('.'):
 		os.chdir('..')
 	else:
-		subprocess.Popen(['ctags','-R'])
+		if  file_type == "php":
+			subprocess.Popen(['ctags','-R','--fields=+aimS','--languages=php'])
+		else:
+			subprocess.Popen(['ctags','-R'])
 		print(os.getcwd() + '/tags正在重建中...')
 		break
 
