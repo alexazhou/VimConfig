@@ -139,9 +139,14 @@ autocmd FileType python imap <C-t> <esc><C-o>i
 
 
 "Powerline-----------------------
-"let g:Powerline_symbols = 'fancy'
+"let g:Powerline_symbols = 'unicode'
+"let g:Powerline_cache_enabled = 0
 set fillchars+=stlnc:\.,stl:\ ,
 set laststatus=2
+
+AirlineTheme powerlineish
+let g:airline#extensions#whitespace#checks = [ 'indent' ]
+
 
 "tagbar---------------------------------
 let g:tagbar_systemenc = 'cp936'
